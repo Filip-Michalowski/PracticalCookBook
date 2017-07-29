@@ -4,13 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PracticalCookBook"
+        xmlns:view="clr-namespace:PracticalCookBook.Views"
+        xmlns:viewmodel="clr-namespace:PracticalCookBook.ViewModels"
         mc:Ignorable="d"
         Title="Praktyczna Książka Kucharska"
         Height="350"
         Width="525"
         SizeToContent="Manual"
         WindowState="Maximized">
-    <Grid>
-        
-    </Grid>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">
+            <view:MainView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <StackPanel Orientation="Vertical">
+        <!--TODO binding doesn't seem to work-->
+        <TextBlock>Debug Przed</TextBlock>
+        <ContentControl Content="{Binding CurrentPage}" />
+        <TextBlock>Debug Po</TextBlock>
+    </StackPanel>
 </Window>

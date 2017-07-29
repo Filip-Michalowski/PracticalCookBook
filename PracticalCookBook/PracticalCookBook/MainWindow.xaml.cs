@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PracticalCookBook.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,24 @@ namespace PracticalCookBook
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IViewModel _currentPage = new MainViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public IViewModel CurrentPage {
+            get
+            {
+                return _currentPage;
+            }
+
+            private set
+            {
+                _currentPage = value;
+                //OnPropertyChanged("CurrentPage");//TODO doesn't seem to work
+            }
         }
     }
 }
