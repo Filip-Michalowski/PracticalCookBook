@@ -1,4 +1,5 @@
-﻿using PracticalCookBook.ViewModels;
+﻿using PracticalCookBook.Framework;
+using PracticalCookBook.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +24,7 @@ namespace PracticalCookBook
     public partial class MainWindow : Window
     {
         private IViewModel _currentPage = new MainViewModel();
-
+        
         public MainWindow()
         {
             InitializeComponent();

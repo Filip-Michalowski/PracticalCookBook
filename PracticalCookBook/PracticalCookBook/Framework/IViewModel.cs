@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PracticalCookBook.ViewModels
+namespace PracticalCookBook.Framework
 {
     public interface IViewModel
     {

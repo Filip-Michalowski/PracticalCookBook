@@ -21,6 +21,14 @@
     </Window.Resources>
 
     <StackPanel Orientation="Vertical">
+        <TextBlock
+            Grid.Row="0" Grid.Column="0"
+            FontSize="12"
+            FontWeight="Bold"
+            Foreground="#08a9f4">
+            Praktyczna Książka Kucharska
+        </TextBlock>
+        
         <ContentControl Content="{Binding CurrentPage}" />
     </StackPanel>
 </Window>
