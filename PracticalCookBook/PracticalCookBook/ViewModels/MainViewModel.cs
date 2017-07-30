@@ -15,7 +15,7 @@ namespace PracticalCookBook.ViewModels
 
         public MainViewModel()
         {
-            this.ExampleRecipeCommand = new ActionCommand()
+            //this.ExampleRecipeCommand = new ActionCommand()
 
             Debug.WriteLine("\tinicjalizacja MainViewModel");//TODO delete this
         }
