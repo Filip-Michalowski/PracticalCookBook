@@ -11,8 +11,9 @@
         Height="350"
         Width="525"
         SizeToContent="Manual"
-        WindowState="Maximized">
-
+        WindowState="Maximized"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">
             <view:MainView />
@@ -20,9 +21,6 @@
     </Window.Resources>
 
     <StackPanel Orientation="Vertical">
-        <!--TODO binding doesn't seem to work-->
-        <TextBlock>Debug Przed</TextBlock>
         <ContentControl Content="{Binding CurrentPage}" />
-        <TextBlock>Debug Po</TextBlock>
     </StackPanel>
 </Window>
