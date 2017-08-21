@@ -9,15 +9,24 @@ using System.Windows.Input;
 
 namespace PracticalCookBook.ViewModels
 {
-    public class MainViewModel : IViewModel
+    public class MainViewModel : ViewModel
     {
-        public ICommand ExampleRecipeCommand { get; private set; }
+        public ICommand GoToExampleRecipe { get; private set; }
 
-        public MainViewModel()
+        public MainViewModel(INavigator navigator)
+            : base(navigator)
         {
-            //this.ExampleRecipeCommand = new ActionCommand()
+            GoToExampleRecipe = new ActionCommand(() => {
+                Debug.WriteLine("\tKliknięto na przycisk przykładowego przepisu.");
+                _navigator.NavigateToRecipe(1);
+            }, () => true);
 
             Debug.WriteLine("\tinicjalizacja MainViewModel");//TODO delete this
+        }
+
+        private void ShowExampleRecipe()
+        {
+
         }
     }
 }

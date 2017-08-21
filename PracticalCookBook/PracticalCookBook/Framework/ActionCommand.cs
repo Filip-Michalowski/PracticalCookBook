@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace PracticalCookBook.Framework
 {
     //Run-of-themill ICommand implementation based on popular tutorials.
-    class ActionCommand : ICommand
+    public class ActionCommand : ICommand
     {
         private readonly Action _execute;
 

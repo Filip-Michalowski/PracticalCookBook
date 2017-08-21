@@ -2,6 +2,7 @@
 using PracticalCookBook.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -21,16 +22,20 @@ namespace PracticalCookBook
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged, INavigator
     {
-        private IViewModel _currentPage = new MainViewModel();
-        
+        private ViewModel _currentPage;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MainWindow()
         {
+            _currentPage = new MainViewModel(this);
+
             InitializeComponent();
         }
 
-        public IViewModel CurrentPage {
+        public ViewModel CurrentPage {
             get
             {
                 return _currentPage;
@@ -40,7 +45,22 @@ namespace PracticalCookBook
             {
                 _currentPage = value;
                 //OnPropertyChanged("CurrentPage");//TODO doesn't seem to work
+                //OnPropertyChanged(new RoutedPropertyChangedEventArgs("CurrentPage"));//doesn't seem to work either
+
+                PropertyChanged(this, new PropertyChangedEventArgs("CurrentPage"));
             }
+        }
+
+        public void NavigateToMainMenu()
+        {
+            Debug.WriteLine("\tWywołanie MainWindow.NavigateToMainMenu()");
+            CurrentPage = new MainViewModel(this);
+        }
+
+        public void NavigateToRecipe(int recipeId)
+        {
+            Debug.WriteLine("\tWywołanie MainWindow.NavigateToRecipe()");
+            CurrentPage = new RecipeViewModel(this, recipeId);
         }
     }
 }
