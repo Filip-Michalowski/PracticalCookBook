@@ -58,6 +58,9 @@
     <Compile Include="Framework\ActionCommand.cs" />
     <Compile Include="Framework\INavigator.cs" />
     <Compile Include="Framework\ViewModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\RecipeModel.cs" />
+    <Compile Include="Models\TagModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
@@ -117,7 +120,6 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Database\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
