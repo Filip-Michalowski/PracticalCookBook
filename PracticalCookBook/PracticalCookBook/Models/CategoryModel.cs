@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalCookBook.Models
 {
-    class CategoryModel
+    public class CategoryModel
     {
         public int Id { get; set; }
 

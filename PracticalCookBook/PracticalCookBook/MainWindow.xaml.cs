@@ -33,6 +33,12 @@ namespace PracticalCookBook
             _currentPage = new MainViewModel(this);
 
             InitializeComponent();
+
+            {//HACK delete this
+                var foo = new Models.CookbookContext();
+
+                foo.Categories.FirstOrDefault();
+            }
         }
 
         public ViewModel CurrentPage {
@@ -44,9 +50,7 @@ namespace PracticalCookBook
             private set
             {
                 _currentPage = value;
-                //OnPropertyChanged("CurrentPage");//TODO doesn't seem to work
-                //OnPropertyChanged(new RoutedPropertyChangedEventArgs("CurrentPage"));//doesn't seem to work either
-
+                
                 PropertyChanged(this, new PropertyChangedEventArgs("CurrentPage"));
             }
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalCookBook.Models
 {
-    class TagModel
+    public class TagModel
     {
         public int Id { get; set; }
 
