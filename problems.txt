@@ -1,0 +1,14 @@
+﻿2017-08-31
+Attempts at using Entity Framework 6 with Migrations:
+	- Problem: EF can't create code-first database using SQLite
+		- Solution: install SQLite.Codefirst package
+	- Problem: EF can't find "System.Data.SQLite.EF6" provider; complains it can't find "System.Data.SQLite" provider instead
+		- Solution: add redundant "System.Data.SQLite" provider with all the data from "System.Data.SQLite.EF6"
+	- Problem: Migrations aren't enabled for SQLite
+		- Solution: use a class courtesy of Julio C. Borges, a Stack Overflow user
+	- Problem: attempt at using "Update-Database" fails with "CreateDatabase is not supported by the provider." Plus, whenever this happens, one of the DLLs in bin\Debug gets locked, preventing rebuilding
+		- Attempt #01: nothing.
+		- Attempt #02: SetSqlGenerator("System.Data.SQLite", new MigrationSqLiteGenerator());
+		- Attempt #03: SetSqlGenerator("System.Data.SQLite.EF6", new MigrationSqLiteGenerator());
+		- Solution: ...
+- Resolution: use EF6 with custom versioning scheme

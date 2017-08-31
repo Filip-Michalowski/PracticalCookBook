@@ -19,5 +19,7 @@ namespace PracticalCookBook.Models
         public CookbookContext() : base("SQLiteDatabase") { }
 
         public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<TagModel> Tags { get; set; }
+        public DbSet<RecipeModel> Recipes { get; set; }
     }
 }
