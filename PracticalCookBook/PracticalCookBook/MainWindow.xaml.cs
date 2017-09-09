@@ -33,12 +33,6 @@ namespace PracticalCookBook
             _currentPage = new MainViewModel(this);
 
             InitializeComponent();
-
-            {//HACK delete this
-                var foo = new Models.CookbookContext();
-
-                foo.Categories.FirstOrDefault();
-            }
         }
 
         public ViewModel CurrentPage {
