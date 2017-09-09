@@ -33,6 +33,15 @@ namespace PracticalCookBook
             _currentPage = new MainViewModel(this);
 
             InitializeComponent();
+
+            {
+                Database.DatabaseUpdater.Debug_SelfDestruct();
+
+                using (var foo = new Database.DatabaseUpdater())
+                {
+                    foo.Update();
+                }
+            }//TODO remove this
         }
 
         public ViewModel CurrentPage {
