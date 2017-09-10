@@ -35,7 +35,7 @@ namespace PracticalCookBook
             InitializeComponent();
 
             {
-                Database.DatabaseUpdater.Debug_SelfDestruct();
+                //Database.DatabaseUpdater.Debug_SelfDestruct();
 
                 using (var foo = new Database.DatabaseUpdater())
                 {

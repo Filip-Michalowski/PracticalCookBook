@@ -22,7 +22,7 @@ namespace PracticalCookBook.Database
          - "Optimizing SQL" - basics
         */
 
-        public readonly int CurrentVersion = 1;
+        public readonly long CurrentVersion = 1;
 
         private SQLiteConnection conn;
         private DateTime updateStartTime;
@@ -66,7 +66,7 @@ namespace PracticalCookBook.Database
         {
             updateStartTime = DateTime.Now;
 
-            int versionAtStartup;
+            long versionAtStartup;
             bool isDbEmpty = false;
 
             using (SQLiteCommand checkCmd = new SQLiteCommand(conn))
@@ -76,7 +76,7 @@ namespace PracticalCookBook.Database
                     + " FROM sqlite_master"
                     + " WHERE type='table' AND name='meta'";
 
-                isDbEmpty = checkCmd.ExecuteScalar() == null;
+                isDbEmpty = (checkCmd.ExecuteScalar() == null);
             }
 
             if (isDbEmpty)
@@ -89,7 +89,7 @@ namespace PracticalCookBook.Database
                 versionAtStartup = readDatabaseVersion();
             }
 
-            if (versionAtStartup < CurrentVersion) 
+            if (versionAtStartup < CurrentVersion)
             {
                 //The following transaction creates and/or updates the database to the newest version, as needed.
                 using (SQLiteTransaction tran = conn.BeginTransaction())
@@ -103,7 +103,7 @@ namespace PracticalCookBook.Database
                                     "CREATE TABLE categories ("
                                     + "id INTEGER PRIMARY KEY"
                                     + ",name TEXT NOT NULL"
-                                    + ",description TEXT"//probably not need at the moment
+                                    + ",description TEXT"//probably not needed at the moment
                                     + ")";
 
                                 cmd.ExecuteNonQuery();
@@ -163,7 +163,6 @@ namespace PracticalCookBook.Database
                     }
 
                     tran.Commit();
-                    //TODO actual database creation, version update insert
                 }
             }
             else if (versionAtStartup > CurrentVersion)
@@ -196,15 +195,15 @@ namespace PracticalCookBook.Database
             }
         }
 
-        private int readDatabaseVersion()
+        private long readDatabaseVersion()
         {
-            int version = 0;
+            long version = 0;
 
             using (SQLiteCommand versionCmd = new SQLiteCommand(conn))
             {
                 versionCmd.CommandText = "SELECT MAX(version) FROM meta";
 
-                version = (int)(versionCmd.ExecuteScalar() ?? 0);
+                version = (long?)versionCmd.ExecuteScalar() ?? 0;
             }
 
             return version;
