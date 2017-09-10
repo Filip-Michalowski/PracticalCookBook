@@ -143,8 +143,8 @@ namespace PracticalCookBook.Database
                                     + ")";
                                 cmd.ExecuteNonQuery();
                                 
-                                /*cmd.CommandText = "CREATE INDEX ingredientsByRecipeId ON ingredients (recipedId)";
-                                cmd.ExecuteNonQuery();*/
+                                cmd.CommandText = "CREATE INDEX ingredientsByRecipeId ON ingredients (recipeId)";
+                                cmd.ExecuteNonQuery();
                             }
                             goto case 1;
                         case 1:
