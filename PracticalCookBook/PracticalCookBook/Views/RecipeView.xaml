@@ -4,11 +4,21 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PracticalCookBook.Views"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300">
+      mc:Ignorable="d"
+      d:DesignHeight="300" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -16,24 +26,71 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="800" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="0">
-                <Run>Przykładowy nagłówek przepisu. id:</Run>
-                <Run Text="{Binding RecipeId, Mode = OneWay}" />
-                <!--
-                <MultiBinding StringFormat="Przykładowy nagłówek przepisu. id:{0}">
-                    <Binding Path="RecipeId" />
-                </MultiBinding>
-                -->
-        </TextBlock>
 
         <StackPanel
             Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Vertical">
+            <Button Width="150" Command="{Binding ToggleEdit}">Toggle edit</Button>
+            <TextBlock FontWeight="Bold"
+                       Text="{Binding Title, Mode=OneWay}"
+                       Visibility="{Binding ReadMode, Converter={StaticResource BoolToVis}}"/>
+
+            <StackPanel Orientation="Horizontal" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}">
+                <TextBlock>Nazwa: </TextBlock>
+                <TextBox Width="300" Text="{Binding Title, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="2"
+            Orientation="Vertical">
+            <ListBox ItemsSource="{Binding Ingredients}" Visibility="{Binding ReadMode, Converter={StaticResource BoolToVis}}">
+                <!-- TODO put viewable ingredient list here -->
+            </ListBox>
+
+            <ListView ItemsSource="{Binding Ingredients}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}">
+                <!-- TODO read more documentation on ListView -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" />
+                            <!-- TODO you can't really bind TextBox to string in a list; you need a class with properties for that-->
+                            <!--<TextBox Width="100" Text="{Binding, Mode=OneWay}" />-->
+                            <Button Foreground="#EE0000">✗</Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <!--
+        <StackPanel
+            Grid.Row="0"
             Grid.Column="0">
             <Button Command="{Binding GoToMainMenu}">Wróć do menu głównego</Button>
         </StackPanel>
+
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0">
+                <Run>Przykładowy nagłówek przepisu. id:</Run>
+                <Run Text="{Binding RecipeId, Mode=OneWay}" />
+        </TextBlock>
+        -->
+
+        <TextBlock
+            Grid.Row="9"
+            Grid.Column="1">
+                <Run>DEBUG. RecipeId:</Run>
+                <Run Text="{Binding RecipeId, Mode=OneWay}" />
+                <Run> EditMode: </Run>
+                <Run Text="{Binding EditMode, Mode=OneWay }" />
+                <Run> ReadMode: </Run>
+                <Run Text="{Binding ReadMode, Mode=OneWay }" />
+        </TextBlock>
     </Grid>
 </UserControl>

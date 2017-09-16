@@ -25,9 +25,15 @@
         <StackPanel
             Grid.Row="1"
             Grid.Column="0"
-            Orientation="Horizontal">
+            Orientation="Vertical">
             <Button
-                Width="Auto"
+                Width="250"
+                Height="20"
+                Command="{Binding GoToNewRecipe}">
+                Nowy przepis
+            </Button>
+            <Button
+                Width="250"
                 Height="20"
                 Command="{Binding GoToExampleRecipe}">
                 Pokaż mi przykładowy przepis. (id:1)

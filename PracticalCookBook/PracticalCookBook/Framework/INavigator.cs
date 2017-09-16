@@ -12,6 +12,7 @@ namespace PracticalCookBook.Framework
     public interface INavigator
     {
         void NavigateToMainMenu();
+        void NavigateToRecipe();
         void NavigateToRecipe(int recipeId);
     }
 }

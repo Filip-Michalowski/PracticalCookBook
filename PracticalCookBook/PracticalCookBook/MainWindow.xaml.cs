@@ -64,10 +64,16 @@ namespace PracticalCookBook
             CurrentPage = new MainViewModel(this);
         }
 
-        public void NavigateToRecipe(int recipeId)
+        public void NavigateToRecipe()
         {
             Debug.WriteLine("\tWywołanie MainWindow.NavigateToRecipe()");
-            CurrentPage = new RecipeViewModel(this, recipeId);
+            CurrentPage = new RecipeViewModel(this);
+        }
+
+        public void NavigateToRecipe(int recipeId)
+        {
+            Debug.WriteLine("\tWywołanie MainWindow.NavigateToRecipe(int)");
+            CurrentPage = new RecipeViewModel(this, recipeId, true);
         }
     }
 }
