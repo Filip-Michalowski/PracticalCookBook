@@ -4,10 +4,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PracticalCookBook.Views"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="800">
 
     <UserControl.Resources>
+        <sys:Double x:Key="MainColumnWidth">800</sys:Double>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
     
@@ -26,7 +28,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="800" />
+            <ColumnDefinition Width="{Binding Source={StaticResource MainColumnWidth}}" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -49,23 +51,87 @@
             Grid.Column="1"
             Grid.Row="2"
             Orientation="Vertical">
-            <ListBox ItemsSource="{Binding Ingredients}" Visibility="{Binding ReadMode, Converter={StaticResource BoolToVis}}">
-                <!-- TODO put viewable ingredient list here -->
-            </ListBox>
-
-            <ListView ItemsSource="{Binding Ingredients}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}">
-                <!-- TODO read more documentation on ListView -->
+            <ListView ItemsSource="{Binding Ingredients}" Visibility="{Binding ReadMode, Converter={StaticResource BoolToVis}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding}" />
-                            <!-- TODO you can't really bind TextBox to string in a list; you need a class with properties for that-->
-                            <!--<TextBox Width="100" Text="{Binding, Mode=OneWay}" />-->
+                            <TextBlock Width="100" Text="{Binding Body, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView ItemsSource="{Binding Ingredients}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="100" Text="{Binding Body, Mode=TwoWay}" />
                             <Button Foreground="#EE0000">✗</Button>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="3"
+            Orientation="Vertical">
+            <TextBlock FontWeight="Bold">Sposób przygotowania:</TextBlock>
+            
+            <TextBlock
+                Visibility="{Binding ReadMode, Converter={StaticResource BoolToVis}}"
+                Text="{Binding Preparation, Mode=OneWay}"
+                TextWrapping="Wrap" />
+
+            <TextBox
+                Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}"
+                Text="{Binding Preparation, Mode=TwoWay}"
+                TextWrapping="Wrap"
+                AcceptsReturn="True" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="4"
+            Orientation="Vertical">
+            <TextBlock FontWeight="Bold">Tagi:</TextBlock>
+
+            <StackPanel
+                Orientation="Horizontal">
+                <ListView
+                    ItemsSource="{Binding Tags}"
+                    Width="{StaticResource MainColumnWidth}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!--<WrapPanel Orientation="Horizontal" Width="{StaticResource MainColumnWidth}" />-->
+                            <!--<WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" />-->
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{StaticResource MainColumnWidth}" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                BorderBrush="#4477FF"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="1,1,3,1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Foreground="#4477FF"
+                                        Margin="3"
+                                        Text="{Binding Name}" />
+                                    <!--HACK fix the binding so it's tied to ViewModel, not the item-->
+                                    <Button
+                                        Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.EditMode, Converter={StaticResource BoolToVis}}"
+                                        Foreground="#EE0000">✗</Button>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+            
         </StackPanel>
         <!--
         <StackPanel

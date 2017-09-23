@@ -19,7 +19,9 @@ namespace PracticalCookBook.ViewModels
         #region BindableProperties
         public int RecipeId { get; private set; }
         public string Title { get; private set; }
-        public ObservableCollection<string> Ingredients { get; private set; }
+        public ObservableCollection<IngredientTemplateItem> Ingredients { get; private set; }
+        public string Preparation { get; private set; }
+        public ObservableCollection<TagTemplateItem> Tags { get; private set; }
 
         public bool EditMode {
             get
@@ -44,11 +46,23 @@ namespace PracticalCookBook.ViewModels
         private void initialize()
         {
             ToggleEdit = new ActionCommand(() => { ChangeEditMode(!_editMode); }, () => true);
+
+            Ingredients = new ObservableCollection<IngredientTemplateItem>();
+            Tags = new ObservableCollection<TagTemplateItem>();
+
             {
-                Ingredients = new ObservableCollection<string>();
-                Ingredients.Add("squash");
-                Ingredients.Add("half a squash");
-                Ingredients.Add("pinch of a squash");
+                Ingredients.Add(new IngredientTemplateItem(1, "squash"));
+                Ingredients.Add(new IngredientTemplateItem(2, "half a squash"));
+                Ingredients.Add(new IngredientTemplateItem(3, "pinch of a squash"));
+
+                Tags.Add(new TagTemplateItem(1, "squash-things"));
+                Tags.Add(new TagTemplateItem(2, "edible"));
+                Tags.Add(new TagTemplateItem(3, "verisimilitude"));
+                Tags.Add(new TagTemplateItem(4, "the-meaning-of-life-universe-and-everything"));
+                Tags.Add(new TagTemplateItem(5, "miscellaneous"));
+                Tags.Add(new TagTemplateItem(6, "assorted"));
+                Tags.Add(new TagTemplateItem(7, "padder-test-debug-assorted-thingie"));
+                Tags.Add(new TagTemplateItem(8, "and-one-more-thing"));
             }//HACK delete this
         }
         #endregion
@@ -109,7 +123,29 @@ namespace PracticalCookBook.ViewModels
         #endregion
 
         #region Private classes
-        
+        public class IngredientTemplateItem
+        {
+            public int Id { get; set; }
+            public string Body { get; set; }
+
+            public IngredientTemplateItem(int id, string body)
+            {
+                Id = id;
+                Body = body;
+            }
+        }
+
+        public class TagTemplateItem
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+            public TagTemplateItem(int id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+        }
         #endregion
     }
 }
